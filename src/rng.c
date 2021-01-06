@@ -19,14 +19,16 @@ int main(int argc, char *argv[])
 
 	int x = atoi(argv[1]);
 	int i;
-	FILE *fileptr;
-	fileptr = fopen("data_test.txt", "w");
+	FILE *file;
+	file = fopen("data_test.txt", "wb");
 	srand(time(0));
 
+	fprintf(file, "%d\n", x);
+
 	for(i=0;i<x;i++){
-		fprintf(fileptr, "%d\n", rand());
+		fprintf(file, "%d\n", rand());
 	}
-	fclose(fileptr);	
+	fclose(file);	
 	return 0;
 }
 
