@@ -1,9 +1,10 @@
-/* 3 chosen algorithim */
+/* 3 algorithims */
 
 void swap(int *x, int *y);
 void selection_sort(int *a, const int n);
 void display(int array[], int size);
 
+void insertion_sort(int *a, const int size);
 
 void swap(int *x, int *y)
 {
@@ -29,7 +30,22 @@ void selection_sort(int* array, const int size)
     }
 }
 
-*/ /* This display function is utilized to print each element of the array */
+void insertion_sort(int *array, const int n)
+{
+	int i, j, k;
+	for(i=0;i<n;i++){
+		k = array[j];
+		j = i - 1;
+		while ((j >= 0) && (k < array[j]))
+        {
+            array[j + 1] = array[j];
+            --j;
+        }
+        array[j + 1] = k;
+    }
+}
+
+ /* This display function is utilized to print each element of the array */
 void display(int array[], int size)
 {
 	int i;
