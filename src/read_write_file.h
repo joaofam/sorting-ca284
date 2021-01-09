@@ -23,3 +23,15 @@ int * file_read()
     fclose(file);
     return array;
 }
+
+
+void file_write(int array[], int n)
+{
+    FILE *file;
+    file = fopen("sorted_data.txt", "wb");
+    for (int i = 0; i < n; i++){
+        fprintf(file, "%d\n", array[i]);
+    }
+
+    fclose(file);
+}
