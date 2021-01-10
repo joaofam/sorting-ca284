@@ -1,6 +1,9 @@
 #include <stdio.h>
+#include <time.h>       // for clock_t, clock(), CLOCKS_PER_SEC
+#include <unistd.h>     // for sleep()
 #include "sorting_algorithims.h"
 #include "read_write_file.h"
+
 
 int selection_of_algorithims();
 void sort_choice(int sort, int *array, int n);
@@ -15,8 +18,14 @@ int main()
     array = file_read();
 
     int sort = selection_of_algorithims();
-
+    
+    clock_t start = clock();
     sort_choice(sort, array, n);
+    clock_t end = clock();
+
+    double execution_time = (double)(end - start) / CLOCKS_PER_SEC * 1000;
+
+    printf("\nExecution time is %fms.\n\n", execution_time);
 
     file_write(array, n);
     return 0;
