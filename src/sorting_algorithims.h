@@ -10,6 +10,8 @@ int getMax(int arr[], int n);
 void countSort(int arr[], int n, int exp);
 void radixsort(int arr[], int n);
 
+int compare_ints(const void *a, const void *b);
+
 void swap(int *x, int *y)
 {
 	int tmp;
@@ -109,3 +111,14 @@ void display(int array[], int n)
 	printf("\n");
 	}
 }
+
+/* DataSets */
+
+int compare_ints(const void *a, const void *b)
+{
+const int *da = (const int *) a;
+const int *db = (const int *) b;
+
+return (*da > *db) - (*da < *db);
+}
+
