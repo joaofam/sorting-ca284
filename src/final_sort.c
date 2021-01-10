@@ -46,3 +46,6 @@ void sort_choice(int sort, int *array, int n)
 		exit(1);
 	}
 }
+
+
+/* https://www.techiedelight.com/find-execution-time-c-program/ */
