@@ -1,8 +1,9 @@
 /* 3 algorithims */
 
+void display(int array[], int n);
+
 void swap(int *x, int *y);
 void selection_sort(int *array, const int n);
-void display(int array[], int n);
 
 void insertion_sort(int *a, int n);
 
@@ -11,7 +12,9 @@ void countSort(int arr[], int n, int exp);
 void radixsort(int arr[], int n);
 
 int compare_ints(const void *a, const void *b);
+int descending_ints(const void *a, const void* b);
 
+/* Swap function to be added to Selection */
 void swap(int *x, int *y)
 {
 	int tmp;
@@ -20,11 +23,13 @@ void swap(int *x, int *y)
 	*y = tmp;
 }
 
+/* Selection sort algorithim */
 void selection_sort(int* array, const int n)
 {
 	int i, j;
 	int min;
-
+    
+    /* for loop to search for the minimum element */
 	for (i=0; i<n-1; i++){
         min = i;
         for (j=i+1; j<n; j++){
@@ -32,75 +37,68 @@ void selection_sort(int* array, const int n)
                 min = j;
             }
         }
+        /* swap function to swap the minimum element with the first element */
         swap(&array[i], &array[min]);
     }
 }
 
-void insertion_sort(int *array,const int n)
+/* Insertion sort algorithim */
+void insertion_sort(int *array, const int n)
 {
- 
-    int i,j, k;
+    int i,j, key;
     for(i=1; i<n; ++i)
     {
-        k=array[i];
+        key=array[i];
         j=i-1;
-        while ((j >= 0) && (k < array[j])){
-            array[j + 1] = array[j];
-            --j;
+
+        /* elements that are greater than they key are moved 
+        from their current possition to one position ahead */
+        while ((j >= 0) && (key < array[j])){
+            array[j+1] = array[j];
+            j -= 1;
         }
-        array[j + 1] = k;
+        array[j + 1] = key;
     }
 }
 
-int getMax(int arr[], int n) 
+/* function to obtain the max value in the array */
+int getMax(int array[], int n) 
 { 
-    int mx = arr[0]; 
-    for (int i = 1; i < n; i++) 
-        if (arr[i] > mx) 
-            mx = arr[i]; 
-    return mx; 
+    int i;
+    int max = array[0]; 
+    for (i=1; i<n; i++) 
+        if (array[i] > max) 
+            max = array[i]; 
+    return max; 
 } 
   
-// A function to do counting sort of arr[] according to 
-// the digit represented by exp. 
-void countSort(int arr[], int n, int exp) 
+void countSort(int array[], int n, int exp) 
 { 
-    int output[n]; // output array 
+    int output[n];
     int i, count[10] = { 0 }; 
   
-    // Store count of occurrences in count[] 
-    for (i = 0; i < n; i++) 
-        count[(arr[i] / exp) % 10]++; 
+    for (i=0; i<n; i++) 
+        count[(array[i] / exp) % 10]++; 
   
-    // Change count[i] so that count[i] now contains actual 
-    //  position of this digit in output[] 
-    for (i = 1; i < 10; i++) 
-        count[i] += count[i - 1]; 
+    for (i=1; i<10; i++) 
+        count[i] += count[i-1]; 
   
-    // Build the output array 
-    for (i = n - 1; i >= 0; i--) { 
-        output[count[(arr[i] / exp) % 10] - 1] = arr[i]; 
-        count[(arr[i] / exp) % 10]--; 
+    for (i=n-1; i>=0; i--) { 
+        output[count[(array[i] / exp) % 10] - 1] = array[i]; 
+        count[(array[i] / exp) % 10]--; 
     } 
   
-    // Copy the output array to arr[], so that arr[] now 
-    // contains sorted numbers according to current digit 
-    for (i = 0; i < n; i++) 
-        arr[i] = output[i]; 
+    for (i=0; i<n; i++) 
+        array[i] = output[i]; 
 } 
-  
-// The main function to that sorts arr[] of size n using 
-// Radix Sort 
-void radixsort(int arr[], int n) 
+   
+void radixsort(int array[], int n) 
 { 
-    // Find the maximum number to know number of digits 
-    int m = getMax(arr, n); 
+    int exp;
+    int max = getMax(array, n); 
   
-    // Do counting sort for every digit. Note that instead 
-    // of passing digit number, exp is passed. exp is 10^i 
-    // where i is current digit number 
-    for (int exp = 1; m / exp > 0; exp *= 10) 
-        countSort(arr, n, exp); 
+    for (exp=1; max / exp > 0; exp *= 10) 
+        countSort(array, n, exp); 
 } 
 
 void display(int array[], int n)
@@ -108,6 +106,7 @@ void display(int array[], int n)
 	int i;
 	for(i=0;i<n;i++){
 		printf("%d ", array[i]);
+    /* New line add */
 	printf("\n");
 	}
 }
@@ -122,3 +121,16 @@ const int *db = (const int *) b;
 return (*da > *db) - (*da < *db);
 }
 
+int descending_ints(const void *a, const void * b)
+{
+    const int *da = (const int *) a;
+    const int *db = (const int *) b;
+
+    return (*da < *db) - (*da > *db);
+}
+
+/* Sources */
+/* --------*/
+/* Selection Sort - https://www.zentut.com/c-tutorial/c-selection-sort/ */
+/*Insertion Sort - https://www.zentut.com/c-tutorial/insertion-sort-in-c/ */
+/* Radix Sort -  */
