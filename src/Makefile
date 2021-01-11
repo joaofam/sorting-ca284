@@ -8,3 +8,5 @@ build: $(dst) $(addprefix $(dst)/, $(bin))
 
 $(dst)/%: %.c
 	gcc -o $@ $<
+
+# source - ca282.computing.dcu.ie/
